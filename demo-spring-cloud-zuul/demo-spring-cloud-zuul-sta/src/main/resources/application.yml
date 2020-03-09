@@ -1,0 +1,53 @@
+server:
+  port: 5002
+spring:
+  application:
+    name: api-gateway-sta
+  redis:
+    database: 0
+    #host: 10.129.57.84
+    host: 127.0.0.1
+    password:
+    port: 6379
+management:
+  security:
+    enabled: false
+zuul:
+
+  addHostHeader: true
+
+  sensitiveHeaders:
+
+  routes:
+    user-session-api:
+      path: /internal-api/**
+      url: http://127.0.0.1:6001/
+
+    static-url-single:
+      path: /sta-single/**
+      url: http://localhost:8001/
+    static-url-cluster:
+      path: /sta-cluster/**
+      serviceId: sta-cluster-service
+    static-local:
+      path: /local/**
+      url: forward:/local
+  AccessFilter:
+    pre:
+      disable: true
+
+  ratelimit:
+    enabled: true
+    repository: REDIS
+    default-policy:
+      limit: 10
+      quota: 1
+      refresh-interval: 60
+
+ribbon:
+  eureka:
+    enabled: false
+
+sta-cluster-service:
+  ribbon:
+    listOfServers: http://localhost:8001, http://localhost:8002

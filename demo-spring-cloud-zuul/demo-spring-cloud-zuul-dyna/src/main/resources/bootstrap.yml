@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: api-gateway-dyna
+  cloud:
+    config:
+      uri: http://localhost:4001/
+server:
+  port: 5001
+management:
+  security:
+    enabled: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/

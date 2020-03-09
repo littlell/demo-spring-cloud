@@ -1,0 +1,24 @@
+zuul:
+
+  # 忽略服务
+  # ignored-services: "*"
+
+  # 全局忽略路由
+#  ignored-patterns: /**/hello/**
+
+  routes:
+    dyna-url:
+      path: /dyna/**
+      serviceId: hello-service
+
+    hello-service-ext:
+      path: /hello-service/ext/**
+      serviceId: clientservice-v1
+
+    hello-service:
+      path: /hello-service/**
+      serviceId: hello-service
+
+
+    #服务路由的默认规则
+    clientservice-v1:  /clientservice-v1/**
